@@ -1,0 +1,93 @@
+user
+-user_id PK AUTO INCREMENT
+-username
+-password
+-full_name
+-contact_info
+-user_type (admin user, regular user)
+-email
+-status (active, inactive, banned)
+-avatar_url (profile pic)
+-date_created DATETIME
+-last_login DATETIME
+
+
+admin_user
+-admin_user_id FK to user.user_id via normalization
+-access_level (full control, restricted access)
+-admin_id (VARCHAR UNIQUE)
+
+
+regular_user
+-regular_user_id FK to user.user_id via normalization
+-user_bio
+-items_claimed
+-items_reports_count
+-notification_setting (on, off)
+-credential_name
+-credential_file_url
+
+
+location
+-location_id PK AUTO INCREMENT
+-address
+-city_town
+-zipcode
+-country
+-date_created DATETIME
+-last_updated DATETIME
+
+
+item_category
+-category_id PK AUTO INCREMENT
+-category_name
+-description
+-date_created DATETIME
+-last_updated DATETIME
+
+
+lost_found_item_report
+-item_id PK AUTO INCREMENT
+-user_id FK to user.userid (regular user)
+-title
+-item_type (lost, found)
+-item_description
+-category_id FK to item_category.category_id
+-date_lost_found
+-location_id FK to location.location_id
+-status (returned, pending, under review)
+-date_created
+-last_updated
+
+
+item_photo
+-photo_id PK AUTO INCREMENT
+-claim_id FK (nullable FK) to lost_found_item_report.item_id
+-item_id FK (nullable FK) to lost_found_item_report.item_id
+-photo_url
+-file_name
+
+item_detail
+-detail_id PK AUTO INCREMENT
+-item_id FK to lost_found_item_report.item_id
+-primary_color (nullable) 
+-secondary_color (nullable) 
+-specific_description (nullable) 
+-specific_location (nullable) 
+-brand (nullable) 
+-model (nullable) 
+-serial_number (nullable)
+
+
+claim
+-claim_id PK AUTO INCREMENT
+-item_id
+-claim_user_id (NULLABLE FORIEGN KEY) FK to user.userid (regular user)
+-non_registered_claim_name
+-non_registered_claim_contact
+-non_registered_claim_email
+-status (pending, under review, claimed, rejected)
+-claim_description
+-specific_item_info
+-date_created
+-last_updated
